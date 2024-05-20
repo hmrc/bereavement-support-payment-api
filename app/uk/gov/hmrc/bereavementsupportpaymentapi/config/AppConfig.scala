@@ -16,10 +16,9 @@ trait AppConfig {
 class AppConfigImpl @Inject()(configuration: ServicesConfig)
   extends AppConfig {
 
-  private val backendServicePrefix = "microservice.services.des"
-  //TODO check backendServicePrefix value
+  private val backendServicePrefix = "microservice.services.hip"
 
-  override lazy val backendBaseUrl: String = configuration.baseUrl("des")
+  override lazy val backendBaseUrl: String = configuration.baseUrl("hip")
   override lazy val backendEnvironment: String = configuration.getString(s"$backendServicePrefix.env")
   override lazy val backendToken: String = configuration.getString(s"$backendServicePrefix.token")
 }
