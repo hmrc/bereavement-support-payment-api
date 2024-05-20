@@ -1,10 +1,25 @@
 package uk.gov.hmrc.bereavementsupportpaymentapi.config
 
 import javax.inject.{Inject, Singleton}
-import play.api.Configuration
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+
+trait AppConfig {
+
+  def backendBaseUrl(): String
+
+  def backendEnvironment(): String
+
+  def backendToken(): String
+}
 
 @Singleton
-class AppConfig @Inject()(config: Configuration) {
+class AppConfigImpl @Inject()(configuration: ServicesConfig)
+  extends AppConfig {
 
-  val appName: String = config.get[String]("appName")
+  private val backendServicePrefix = "microservice.services.des"
+  //TODO check backendServicePrefix value
+
+  override lazy val backendBaseUrl: String = configuration.baseUrl("des")
+  override lazy val backendEnvironment: String = configuration.getString(s"$backendServicePrefix.env")
+  override lazy val backendToken: String = configuration.getString(s"$backendServicePrefix.token")
 }
